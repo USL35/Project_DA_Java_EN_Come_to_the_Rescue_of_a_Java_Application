@@ -1,42 +1,59 @@
 package com.hemebiotech.analytics;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+/**
+ * Main class AnalyticsCounter
+ * -------------------------
+ * Read , Process and write out symptoms
+ * IN : File Symptoms.txt (cf symptomsFilePathIn)
+ * OUT : result.txt (cf symptomsFilePathOut)
+ */
+
 
 public class AnalyticsCounter {
-	private static int headacheCount = 0;	// initialize to 0
-	private static int rashCount = 0;		// initialize to 0
-	private static int pupilCount = 0;		// initialize to 0
-	
-	public static void main(String args[]) throws Exception {
-		// first get input
-		BufferedReader reader = new BufferedReader (new FileReader("Project02Eclipse/symptoms.txt"));
-		String line = reader.readLine();
 
-		int i = 0;	// set i to 0
-        while (line != null) {
-			i++;	// increment i
-			System.out.println("symptom from file: " + line);
-			if (line.equals("headache")) {
-                headacheCount++;
-				System.out.println("number of headaches: " + headacheCount);
-			}
-			else if (line.equals("rush")) {
-				rashCount++;
-			}
-			else if (line.contains("pupils")) {
-				pupilCount++;
-			}
+    public static void main(String args[]) throws Exception {
 
-			line = reader.readLine();	// get another symptom
-		}
-		
-		// next generate output
-		FileWriter writer = new FileWriter ("result.out");
-		writer.write("headache: " + headacheCount + "\n");
-		writer.write("rash: " + rashCount + "\n");
-		writer.write("dialated pupils: " + pupilCount + "\n");
-		writer.close();
+        /**
+         *
+         * @param symptomsFilePathIn & symptomsFilePathOut a full or partial path to file with symptom strings in it, one per line
+         */
+
+        final String symptomsFilePathIn = "Project02Eclipse/symptoms.txt";
+        final String symptomsFilePathOut = "result.out";
+
+        List<String> l_allSymptoms = new ArrayList<String>();
+        Map<String,Integer> l_allSymptomsCount = new TreeMap<String,Integer>();
+
+        ReadSymptomDataFromFile readSymptomDataFromFile = new ReadSymptomDataFromFile(symptomsFilePathIn);
+        SymptomAnalysis symptomAnalysis = new SymptomAnalysis();
+        WriteSymptomAnalysisToOutput writeSymptomAnalysisToOutput = new WriteSymptomAnalysisToOutput();
+
+        /**
+         *
+         * Read Symptom from file
+         */
+
+        l_allSymptoms = readSymptomDataFromFile.GetSymptoms();
+
+        /**
+         *
+         * Symptoms processing
+         */
+
+
+        l_allSymptomsCount = symptomAnalysis.CountNumberOfSymptom(l_allSymptoms);
+
+        /**
+         *
+         * Write Symptoms out
+         */
+
+        writeSymptomAnalysisToOutput.PrintOutSymptoms(l_allSymptomsCount,symptomsFilePathOut);
+
 	}
 }
