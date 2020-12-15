@@ -16,33 +16,9 @@ import java.util.TreeMap;
 
 public class WriteSymptomAnalysisToOutput implements ISymptomWriter {
 
-    /**
-     *
-     * Constructor
-     * IN : l_allSymptomsCount is a Map<String,Integer> that contains Symptoms Name / Number of Symptoms counted
-     */
+     // Constructor
     public WriteSymptomAnalysisToOutput() { };
 
-    @Override
-    /**
-     *
-     * Default print out to terminal
-     * @return a boolean set to true is all Symptoms obtained from a data source have been write out
-     * if a problem occurs return false.
-     */
-
-    public boolean PrintOutSymptoms(Map<String,Integer> l_allSymptomsCount) {
-
-        Map<String,Integer> l_Symptoms = l_allSymptomsCount;
-
-        Map<String,Integer> l_SymptomsOrdered = new TreeMap<String,Integer>();
-        l_SymptomsOrdered.putAll(l_Symptoms);
-        for(Map.Entry symptom : l_SymptomsOrdered.entrySet())
-        {
-            System.out.println(symptom.getKey() + ":"+ symptom.getValue());
-        }
-        return true;
-    }
     /**
      *
      * Print out to file FilePath

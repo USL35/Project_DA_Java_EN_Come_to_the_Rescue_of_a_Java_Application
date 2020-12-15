@@ -16,44 +16,20 @@ import java.util.TreeMap;
 
 public class AnalyticsCounter {
 
+    static final public String symptomsFilePathIn = "Project02Eclipse/symptoms.txt";
+    static final public String symptomsFilePathOut = "result.out";
+
     public static void main(String args[]) throws Exception {
 
-        /**
-         *
-         * @param symptomsFilePathIn & symptomsFilePathOut a full or partial path to file with symptom strings in it, one per line
-         */
-
-        final String symptomsFilePathIn = "Project02Eclipse/symptoms.txt";
-        final String symptomsFilePathOut = "result.out";
-
-        List<String> l_allSymptoms = new ArrayList<String>();
-        Map<String,Integer> l_allSymptomsCount = new TreeMap<String,Integer>();
+        // Declaration
 
         ReadSymptomDataFromFile readSymptomDataFromFile = new ReadSymptomDataFromFile(symptomsFilePathIn);
         SymptomAnalysis symptomAnalysis = new SymptomAnalysis();
         WriteSymptomAnalysisToOutput writeSymptomAnalysisToOutput = new WriteSymptomAnalysisToOutput();
 
-        /**
-         *
-         * Read Symptom from file
-         */
+        //Read,process and write
 
-        l_allSymptoms = readSymptomDataFromFile.GetSymptoms();
-
-        /**
-         *
-         * Symptoms processing
-         */
-
-
-        l_allSymptomsCount = symptomAnalysis.CountNumberOfSymptom(l_allSymptoms);
-
-        /**
-         *
-         * Write Symptoms out
-         */
-
-        writeSymptomAnalysisToOutput.PrintOutSymptoms(l_allSymptomsCount,symptomsFilePathOut);
+        writeSymptomAnalysisToOutput.PrintOutSymptoms(symptomAnalysis.CountNumberOfSymptom(readSymptomDataFromFile.GetSymptoms()),symptomsFilePathOut);
 
 	}
 }

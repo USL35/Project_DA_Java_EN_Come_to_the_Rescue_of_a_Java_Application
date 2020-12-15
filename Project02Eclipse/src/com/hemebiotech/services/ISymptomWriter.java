@@ -16,6 +16,6 @@ public interface ISymptomWriter {
      * @return a boolean set to true is all Symptoms obtained from a data source have been write out
      * if a problem occurs return false.
      */
-    boolean PrintOutSymptoms (Map<String,Integer> l_allSymptomsCount);
+    public boolean PrintOutSymptoms(Map<String,Integer> l_allSymptomsCount,String FilePath);
 
 }

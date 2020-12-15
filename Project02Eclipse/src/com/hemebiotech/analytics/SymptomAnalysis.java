@@ -3,6 +3,7 @@ package com.hemebiotech.analytics;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 /**
  *  class SymptomAnalysis
@@ -13,15 +14,9 @@ import java.util.TreeMap;
 
 public class SymptomAnalysis {
 
-    /**
-     * Constructor
-     * IN : List of Strings
-     */
-
+    // Constructor
     public SymptomAnalysis() {
-    }
-
-    ;
+    };
 
     /**
      * Method CountNumberOfSymptom ()
@@ -29,16 +24,14 @@ public class SymptomAnalysis {
      * @return Map<String, Integer> TableOfSymptoms : Symptoms names and number of symptoms associated.
      */
 
-    public Map<String, Integer> CountNumberOfSymptom(List<String> l_symptoms) {
-        List<String> l_Symptoms = l_symptoms;
-        Map<String, Integer> TableOfSymptoms = new TreeMap<String, Integer>();
+    public Map<String, Integer> CountNumberOfSymptom(List<String> symptoms) {
+        Map<String, Integer> symptomsMap = new TreeMap<String, Integer>();
 
-        l_Symptoms.forEach(name -> {
-            TableOfSymptoms.computeIfPresent(name,(key,val) -> val + 1);
-            TableOfSymptoms.putIfAbsent(name,1);
+        symptoms.forEach(name -> {
+           symptomsMap.putIfAbsent(name, (int) symptoms.stream().filter(t -> t.equals(name)).count());
         });
 
-        return TableOfSymptoms;
+        return symptomsMap;
     }
 }
 
