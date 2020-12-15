@@ -1,10 +1,5 @@
 package com.hemebiotech.analytics;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 /**
  * Main class AnalyticsCounter
  * -------------------------
@@ -16,13 +11,12 @@ import java.util.TreeMap;
 
 public class AnalyticsCounter {
 
-    static final public String symptomsFilePathIn = "Project02Eclipse/symptoms.txt";
-    static final public String symptomsFilePathOut = "result.out";
+    static final public String symptomsFilePathIn = System.getProperty("user.dir") + "/" + "symptoms.txt";
+    static final public String symptomsFilePathOut = System.getProperty("user.dir") + "/" + "result.out";
 
     public static void main(String args[]) throws Exception {
 
         // Declaration
-
         ReadSymptomDataFromFile readSymptomDataFromFile = new ReadSymptomDataFromFile(symptomsFilePathIn);
         SymptomAnalysis symptomAnalysis = new SymptomAnalysis();
         WriteSymptomAnalysisToOutput writeSymptomAnalysisToOutput = new WriteSymptomAnalysisToOutput();
